@@ -18,11 +18,18 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.11",
+    "axios": "^0.27.2",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.5",
+    "nanoid": "^4.0.0",
     "next": "^12.3.0",
+    "pusher": "^5.1.1-beta",
+    "pusher-js": "^7.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "string-to-color": "^2.2.2",
     "tailwind-merge": "^1.6.0"
   },
   "devDependencies": {

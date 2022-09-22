@@ -1,8 +1,7 @@
 import { AppProps } from 'next/app';
+import { useState } from 'react';
 
 import '@/styles/globals.css';
-// !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
-import '@/styles/colors.css';
 
 /**
  * !STARTERCONF info
@@ -10,7 +9,9 @@ import '@/styles/colors.css';
  */
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  const [name, setName] = useState('');
+
+  return <Component {...pageProps} name={name} setName={setName} />;
 }
 
 export default MyApp;

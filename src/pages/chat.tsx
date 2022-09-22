@@ -3,6 +3,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { nanoid } from 'nanoid';
+import { useRouter } from 'next/router';
 import Pusher from 'pusher-js';
 import { useEffect, useRef, useState } from 'react';
 
@@ -22,6 +23,13 @@ export default function ChatPage({ name }) {
   const [chats, setChats] = useState<Chat[]>([]);
   const chatboxBottomRef = useRef<HTMLDivElement>();
   const chatBoxRef = useRef<HTMLDivElement | undefined>();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!name) {
+      router.replace('/');
+    }
+  }, [name, router]);
 
   useEffect(() => {
     chatboxBottomRef.current?.scrollIntoView();

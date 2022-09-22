@@ -1,16 +1,16 @@
 import Pusher from 'pusher';
 
 export const pusher = new Pusher({
-  appId: process.env.app_id,
-  key: process.env.key,
-  secret: process.env.secret,
-  cluster: process.env.cluster,
+  appId: process.env.app_id ?? '',
+  key: process.env.key ?? '',
+  secret: process.env.secret ?? '',
+  cluster: process.env.cluster ?? '',
   useTLS: true,
 });
 
 export default async function handler(req, res) {
   const { message, name, timestamp, id } = req.body;
-  const response = await pusher.trigger('chat', 'chat-event', {
+  await pusher.trigger('chat', 'chat-event', {
     message,
     name,
     timestamp,

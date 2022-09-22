@@ -10,58 +10,6 @@ import Avatar from '@/components/Avatar';
 
 dayjs.extend(relativeTime);
 
-const user = {
-  name: 'Whitney Francis',
-  email: 'whitney@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80',
-};
-
-const comments = [
-  {
-    id: 1,
-    name: 'Leslie Alexander',
-    date: '4d ago',
-    imageId: '1494790108377-be9c29b29330',
-    body: 'Ducimus quas delectus ad maxime totam doloribus reiciendis ex. Tempore dolorem maiores. Similique voluptatibus tempore non ut.',
-  },
-  {
-    id: 2,
-    name: 'Michael Foster',
-    date: '4d ago',
-    imageId: '1519244703995-f4e0f30006d5',
-    body: 'Et ut autem. Voluptatem eum dolores sint necessitatibus quos. Quis eum qui dolorem accusantium voluptas voluptatem ipsum. Quo facere iusto quia accusamus veniam id explicabo et aut.',
-  },
-  {
-    id: 3,
-    name: 'Dries Vincent',
-    date: '4d ago',
-    imageId: '1506794778202-cad84cf45f1d',
-    body: 'Expedita consequatur sit ea voluptas quo ipsam recusandae. Ab sint et voluptatem repudiandae voluptatem et eveniet. Nihil quas consequatur autem. Perferendis rerum et.',
-  },
-  {
-    id: 4,
-    name: 'Leslie Alexander',
-    date: '4d ago',
-    imageId: '1494790108377-be9c29b29330',
-    body: 'Ducimus quas delectus ad maxime totam doloribus reiciendis ex. Tempore dolorem maiores. Similique voluptatibus tempore non ut.',
-  },
-  {
-    id: 5,
-    name: 'Michael Foster',
-    date: '4d ago',
-    imageId: '1519244703995-f4e0f30006d5',
-    body: 'Et ut autem. Voluptatem eum dolores sint necessitatibus quos. Quis eum qui dolorem accusantium voluptas voluptatem ipsum. Quo facere iusto quia accusamus veniam id explicabo et aut.',
-  },
-  {
-    id: 6,
-    name: 'Dries Vincent',
-    date: '4d ago',
-    imageId: '1506794778202-cad84cf45f1d',
-    body: 'Expedita consequatur sit ea voluptas quo ipsam recusandae. Ab sint et voluptatem repudiandae voluptatem et eveniet. Nihil quas consequatur autem. Perferendis rerum et.',
-  },
-];
-
 type Chat = {
   name: string;
   message: string;
@@ -73,14 +21,14 @@ export default function ChatPage({ name }) {
   const [message, setMessage] = useState('');
   const [chats, setChats] = useState<Chat[]>([]);
   const chatboxBottomRef = useRef<HTMLDivElement>();
-  const chatBoxRef = useRef<HTMLDivElement>();
+  const chatBoxRef = useRef<HTMLDivElement | undefined>();
 
   useEffect(() => {
     chatboxBottomRef.current?.scrollIntoView();
   }, [chats]);
 
   useEffect(() => {
-    const pusher = new Pusher(process.env.NEXT_PUBLIC_KEY!, {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_KEY ?? '', {
       cluster: 'us2',
     });
 
@@ -131,6 +79,7 @@ export default function ChatPage({ name }) {
             </div> */}
             <div
               className='h-[calc(100vh-176px)] overflow-y-auto px-4 py-6 sm:px-6'
+              // @ts-ignore
               ref={chatBoxRef}
             >
               <ul role='list' className='space-y-8'>
@@ -138,11 +87,7 @@ export default function ChatPage({ name }) {
                   <li key={chat.id}>
                     <div className='flex space-x-3'>
                       <div className='flex-shrink-0'>
-                        <img
-                          className='h-10 w-10 rounded-full'
-                          src={`https://images.unsplash.com/photo-${comments[0].imageId}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`}
-                          alt=''
-                        />
+                        <Avatar name={chat.name} />
                       </div>
                       <div>
                         <div className='text-sm'>
@@ -172,6 +117,7 @@ export default function ChatPage({ name }) {
                   </li>
                 ))}
               </ul>
+              {/* @ts-ignore */}
               <div ref={chatboxBottomRef}></div>
             </div>
           </div>

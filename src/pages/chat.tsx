@@ -62,6 +62,10 @@ export default function ChatPage({ name }) {
   const submitMessage = async (e) => {
     e.preventDefault();
 
+    if (!message) {
+      return;
+    }
+
     setMessage('');
 
     await axios.post('/api/pusher', {
@@ -146,6 +150,7 @@ export default function ChatPage({ name }) {
                       About
                     </label>
                     <textarea
+                      required
                       id='comment'
                       name='comment'
                       rows={3}
